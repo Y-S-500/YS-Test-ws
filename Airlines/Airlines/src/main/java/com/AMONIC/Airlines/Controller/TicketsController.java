@@ -52,5 +52,7 @@ public class TicketsController extends ABaseController<Tickets, ITicketsService>
             e.printStackTrace();
             return ResponseEntity.status(500).body("Error al subir el archivo: " + e.getMessage());
         }
-    }}
+    }
+    
+}
 
