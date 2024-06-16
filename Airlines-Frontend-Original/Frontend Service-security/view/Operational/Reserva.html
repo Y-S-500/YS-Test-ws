@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/litera/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/estyle.css">
+</head>
+
+<body>
+    <div class="container">
+        <legend>Búsqueda de vuelos</legend>
+        <br>
+        <br>
+        <legend>Parametros de Búsqueda</legend>
+        <div class="container">
+            <div class="Filtros">
+                <!-- Primera fila: Origen y Destino -->
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="origen">Origen</label>
+                        <div class="input-group">
+                            <select class="form-control" id="origen">
+                                <option>Neiva</option>
+                                <option>Bogota</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="destino">Destino</label>
+                        <div class="input-group">
+                            <select class="form-control" id="destino">
+                                <option>Neiva</option>
+                                <option>Bogota</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="cabina">Tipo de cabina</label>
+                        <div class="input-group">
+                            <select class="form-control" id="cabina" onchange="loadSalida(this.value)">
+                                <option value="Economy">Economy</option>
+                                <option value="Ejecutiva">Ejecutiva</option>
+                                <option value="Primera clase">Primera clase</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="fechaSalida">Fecha de Salida</label>
+                        <input type="date" class="form-control" id="fechaSalida" required>
+                        <div class="valid-tooltip">Looks good!</div>
+                    </div>
+                </div>
+            
+                <!-- Segunda fila: Fecha de salida, Fecha de regreso, Checkboxes -->
+                <div class="row">
+                   
+                    <div class="form-group col-md-4">
+                        <label for="fechaRegreso">Fecha de Regreso</label>
+                        <input type="date" class="form-control" id="fechaRegreso" required>
+                        <div class="valid-tooltip">Looks good!</div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="retorno">
+                            <label class="form-check-label" for="inlineCheckbox1">Retorno</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="ida">
+                            <label class="form-check-label" for="inlineCheckbox2">Solo ida</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Tercera fila: Botón -->
+                <div class="row mt-4">
+                    <div class="col-md-12 text-center">
+                        <button type="button" onclick="Filtro('Economy')" class="btn btn-outline-secondary">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <br>
+
+        <div class="Row">
+            <h6>Detalle de vuelos de salida:</h6>
+            <table  class="table table-hover" >
+                <thead>
+                    <tr class="table-secondary">
+                    <th scope="col">Selecciones</th>    
+                    <th scope="col">Origen</th>
+                    <th scope="col">Destino</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Número de Vuelo</th>
+                    <th scope="col">Precio de Cabina</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider" id="resultSalida">
+                    
+                    
+                </tbody>
+              </table>
+          
+        </div>
+        <div class="Row">
+            <h6>Detalle de vuelos de regreso:</h6>
+            <table  class="table table-hover">
+                <thead>
+                    <tr class="table-secondary">
+                    <th scope="col">Selecciones</th>
+                    <th scope="col">Origen</th>
+                    <th scope="col">Destino</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Número de Vuelo</th>
+                    <th scope="col">Precio de Cabina</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider" id="resultRegreso">
+                    
+                    
+                </tbody>
+              </table>
+          
+        </div>
+        <div class="row">
+            <div class="card text-center">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="origen">Pasajeros</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="pasajeros" placeholder="numero de pasajeros" value="Mark" required>   
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4" >
+                        <br>
+                        <button type="button"  id="obtenerSeleccionadosBtn" onclick="reservar()"  style="width: 80%;" class="btn btn-outline-secondary">Reservar vuelo</button>
+
+                    </div>
+
+                  </div>
+                </div>
+               
+              </div>
+        </div>
+    </div>
+    
+    
+
+    
+ 
+    <script src="/js/Operational/Reserva.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    
+    <script>
+         loadSalida("Economy");
+ 
+    </script>
+
+</body>
+
+</html>
