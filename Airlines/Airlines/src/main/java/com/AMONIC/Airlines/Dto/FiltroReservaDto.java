@@ -1,19 +1,19 @@
 package com.AMONIC.Airlines.Dto;
 
-import java.sql.Date;
+
 
 public class FiltroReservaDto {
 
 	public String origen;
 	public String destino;
-	public Date fecha;
+	public String fecha;
 	public String getOrigen() {
 		return origen;
 	}
 	public String getDestino() {
 		return destino;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	public void setOrigen(String origen) {
@@ -22,7 +22,7 @@ public class FiltroReservaDto {
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	

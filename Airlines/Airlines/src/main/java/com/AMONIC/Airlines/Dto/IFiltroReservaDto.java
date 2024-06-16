@@ -2,14 +2,16 @@ package com.AMONIC.Airlines.Dto;
 
 public interface IFiltroReservaDto {
 	  
-	   String getOrigen();
-	    
-	  String getDestino();
-	  String getFecha();
-	  String getHora();
-	  String getNumeroVuelo();
-	  String getPrecioCabina();
-	  
+	Integer getId();
+    String getOrigen();
+    String getDestino();
+    String getFecha();
+    String getHora(); 
+    String getNumeroVuelo();
+    Double getPrecioCabina();
+    String getTotalSeats();
+    Double getPrecioEjecutivo();
+    Double getPrecioEconomico();
 	  
 	    
 	   

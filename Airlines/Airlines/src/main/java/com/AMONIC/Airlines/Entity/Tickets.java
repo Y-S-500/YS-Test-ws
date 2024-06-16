@@ -1,6 +1,8 @@
 package com.AMONIC.Airlines.Entity;
 
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,7 +40,9 @@ public class Tickets  extends ABaseEntity{
 	private String Email;
 	
 	@Column(name="Phone", nullable = false)
-	private Integer Phone;
+	private String Phone;
+	@Column(name="Birthday",nullable = false)
+	private Date Birthday;
 	
 	
 	
@@ -64,99 +68,106 @@ public class Tickets  extends ABaseEntity{
 		return UsersID;
 	}
 
-	public Schedules getScheduleID() {
-		return ScheduleID;
-	}
-
-	public CabinTypes getCabinTypesID() {
-		return CabinTypesID;
-	}
-
-	public String getFirstName() {
-		return FirstName;
-	}
-
-	public String getLastName() {
-		return LastName;
-	}
-
-	public String getEmail() {
-		return Email;
-	}
-
-	public Integer getPhone() {
-		return Phone;
-	}
-
-	public Integer getPassportNumber() {
-		return PassportNumber;
-	}
-
-	public Countries getPassportCountryID() {
-		return PassportCountryID;
-	}
-
-	public String getPassportPhoto() {
-		return PassportPhoto;
-	}
-
-	public String getBookingReference() {
-		return BookingReference;
-	}
-
-	public Boolean getConfirmed() {
-		return Confirmed;
-	}
-
 	public void setUsersID(Users usersID) {
 		UsersID = usersID;
+	}
+
+	public Schedules getScheduleID() {
+		return ScheduleID;
 	}
 
 	public void setScheduleID(Schedules scheduleID) {
 		ScheduleID = scheduleID;
 	}
 
+	public CabinTypes getCabinTypesID() {
+		return CabinTypesID;
+	}
+
 	public void setCabinTypesID(CabinTypes cabinTypesID) {
 		CabinTypesID = cabinTypesID;
+	}
+
+	public String getFirstName() {
+		return FirstName;
 	}
 
 	public void setFirstName(String firstName) {
 		FirstName = firstName;
 	}
 
+	public String getLastName() {
+		return LastName;
+	}
+
 	public void setLastName(String lastName) {
 		LastName = lastName;
+	}
+
+	public String getEmail() {
+		return Email;
 	}
 
 	public void setEmail(String email) {
 		Email = email;
 	}
 
-	public void setPhone(Integer phone) {
+	public String getPhone() {
+		return Phone;
+	}
+
+	public void setPhone(String phone) {
 		Phone = phone;
+	}
+
+	public Date getBirthday() {
+		return Birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		Birthday = birthday;
+	}
+
+	public Integer getPassportNumber() {
+		return PassportNumber;
 	}
 
 	public void setPassportNumber(Integer passportNumber) {
 		PassportNumber = passportNumber;
 	}
 
+	public Countries getPassportCountryID() {
+		return PassportCountryID;
+	}
+
 	public void setPassportCountryID(Countries passportCountryID) {
 		PassportCountryID = passportCountryID;
+	}
+
+	public String getPassportPhoto() {
+		return PassportPhoto;
 	}
 
 	public void setPassportPhoto(String passportPhoto) {
 		PassportPhoto = passportPhoto;
 	}
 
+	public String getBookingReference() {
+		return BookingReference;
+	}
+
 	public void setBookingReference(String bookingReference) {
 		BookingReference = bookingReference;
 	}
 
+	public Boolean getConfirmed() {
+		return Confirmed;
+	}
+
 	public void setConfirmed(Boolean confirmed) {
 		Confirmed = confirmed;
-	}	
-	
-	
+	}
+
 	
 	
 	

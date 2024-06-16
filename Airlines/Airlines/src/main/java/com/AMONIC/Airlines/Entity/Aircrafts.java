@@ -19,12 +19,12 @@ public class Aircrafts extends ABaseEntity {
 	private String TotalSeats;
 	
 	@Column(name="EconomySeats",nullable = false)
-	private String EconomySeats;
+	private Double  EconomySeats;
 	
 	
 
 	@Column(name="BusinessSeats",nullable = false)
-	private String BusinessSeats;
+	private Double BusinessSeats;
 
 
 
@@ -64,32 +64,30 @@ public class Aircrafts extends ABaseEntity {
 
 
 
-	public String getEconomySeats() {
+	public Double getEconomySeats() {
 		return EconomySeats;
 	}
 
 
 
-	public void setEconomySeats(String economySeats) {
+	public void setEconomySeats(Double economySeats) {
 		EconomySeats = economySeats;
 	}
 
 
 
-	public String getBusinessSeats() {
+	public Double getBusinessSeats() {
 		return BusinessSeats;
 	}
 
 
 
-	public void setBusinessSeats(String businessSeats) {
+	public void setBusinessSeats(Double businessSeats) {
 		BusinessSeats = businessSeats;
 	}
-	
-	
-	
-	
-	
+
+
+
 	
 	
 	

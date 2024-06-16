@@ -1,11 +1,24 @@
 package com.AMONIC.Airlines.IService;
 
-import com.AMONIC.Airlines.Entity.Schedules;
+import java.sql.Date;
+import java.util.List;
+import java.util.Optional;
 
-import jakarta.validation.constraints.AssertFalse.List;
+import org.springframework.data.repository.query.Param;
+
+import com.AMONIC.Airlines.Dto.IFiltroReservaDto;
+import com.AMONIC.Airlines.Entity.Schedules;
 
 public interface ISchedulesService extends IBaseService<Schedules>{
 
 	
-   List<IIFiltroReservaDto> getFiltroReserva();
+List<IFiltroReservaDto> getIda(String origen, String destino, Date fecha) throws Exception;
+	
+	List<IFiltroReservaDto> getRetorno( String destino,String origen, Date fecha) throws Exception;
+
+	List<IFiltroReservaDto> getSalida();
+	
+	Optional<IFiltroReservaDto> getDetalleS(Long id);
+	
+
 }

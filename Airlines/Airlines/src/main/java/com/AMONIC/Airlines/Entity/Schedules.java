@@ -12,12 +12,13 @@ import jakarta.persistence.Table;
 public class Schedules extends ABaseEntity {
 
 
+
 	@Column(name="Date", nullable = false)
 	private java.sql.Date Date;
 	
 
 	@Column(name="Time", nullable = false)
-	private Integer Time;
+	private String Time;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "AircraftID",nullable =  false)
@@ -44,9 +45,20 @@ public class Schedules extends ABaseEntity {
 	}
 
 
-	public Integer getTime() {
+
+
+	public String getTime() {
 		return Time;
 	}
+
+
+
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+
 
 
 	public Aircrafts getAircraftsID() {
@@ -79,9 +91,10 @@ public class Schedules extends ABaseEntity {
 	}
 
 
-	public void setTime(Integer time) {
-		Time = time;
-	}
+	
+
+
+
 
 
 	public void setAircraftsID(Aircrafts aircraftsID) {
@@ -107,10 +120,6 @@ public class Schedules extends ABaseEntity {
 	public void setFlightNumber(Integer flightNumber) {
 		FlightNumber = flightNumber;
 	}
-
-
-	
-	
 	
 	
 	
