@@ -7,6 +7,15 @@ public class FiltroReservaDto {
 	public String origen;
 	public String destino;
 	public String fecha;
+	public Boolean trediasAD;
+	
+	
+	public Boolean getTrediasAD() {
+		return trediasAD;
+	}
+	public void setTrediasAD(Boolean trediasAD) {
+		this.trediasAD = trediasAD;
+	}
 	public String getOrigen() {
 		return origen;
 	}

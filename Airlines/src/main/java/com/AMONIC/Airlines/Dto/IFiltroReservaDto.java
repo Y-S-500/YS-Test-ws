@@ -7,6 +7,17 @@ public interface IFiltroReservaDto {
     String getDestino();
     String getFecha();
     String getHora(); 
-    String getNumeroVuelo();
-    String getPrecioCabina();
+    int getEconomySeats();
+    int getBusinessSeats();
+    int getNumeroVuelo();
+    int getPrecioCabina();
+    String getAircraft();
+    
+    String geTipoCabina();
+    int getTotal_seats();
+    String getTipoCabina();
+    int getAsientosDisponibles();
+    
+    
+    
 }

@@ -12,13 +12,14 @@ import com.AMONIC.Airlines.Entity.Schedules;
 public interface ISchedulesService extends IBaseService<Schedules>{
 
 	
-List<IFiltroReservaDto> getIda(String origen, String destino, Date fecha) throws Exception;
+	List<IFiltroReservaDto> getIda(String origen, String destino, Date fecha,Boolean trediasAD ) throws Exception;
 	
-	List<IFiltroReservaDto> getRetorno( String destino,String origen, Date fecha) throws Exception;
+	List<IFiltroReservaDto> getRetorno( String destino,String origen, String fecha, Boolean trediasAD) throws Exception;
 
 	List<IFiltroReservaDto> getSalida();
 	
 	Optional<IFiltroReservaDto> getDetalleS(Long id);
+
 	
 
 }

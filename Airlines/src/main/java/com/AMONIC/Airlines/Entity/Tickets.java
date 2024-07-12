@@ -1,6 +1,8 @@
 package com.AMONIC.Airlines.Entity;
 
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,7 +31,10 @@ public class Tickets  extends ABaseEntity{
 	private String FirstName;	
 	
 	
-
+	@Column(name="birthday", nullable = false)
+	private Date Birthday;	
+	
+	
 	@Column(name="LastName", nullable = false)
 	private String LastName;
 	
@@ -59,6 +64,15 @@ public class Tickets  extends ABaseEntity{
 	
 	@Column(name="Confirmed", nullable = false)
 	private Boolean Confirmed;
+
+	
+	public Date getBirthday() {
+		return Birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		Birthday = birthday;
+	}
 
 	public Users getUsersID() {
 		return UsersID;

@@ -38,7 +38,7 @@ public class SchedulesController extends ABaseController<Schedules, ISchedulesSe
 	        System.out.println(filtro.getOrigen() + fechaDestino);
 	        
 	        
-	        List<IFiltroReservaDto> result = service.getIda(filtro.getOrigen(), filtro.getDestino(), fechaDestino);
+	        List<IFiltroReservaDto> result = service.getIda(filtro.getOrigen(), filtro.getDestino(), fechaDestino,filtro.getTrediasAD());
 	        return ResponseEntity.ok(new ApiResponseDto<List<IFiltroReservaDto>>("Datos obtenidos", result, true));
 	    } catch (Exception e) {
 	        return ResponseEntity.internalServerError().body(new ApiResponseDto<List<IFiltroReservaDto>>(e.getMessage(), null, false));
@@ -49,9 +49,8 @@ public class SchedulesController extends ABaseController<Schedules, ISchedulesSe
 	@PostMapping("/Filtro-Retorno")
     public ResponseEntity<ApiResponseDto<List<IFiltroReservaDto>>> filtroRetorno(@RequestBody FiltroReservaDto filtro) {
         try {
-        	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        java.sql.Date fecha = new java.sql.Date(dateFormat.parse(filtro.getFecha()).getTime());
-	        List<IFiltroReservaDto>   result= service.getRetorno(filtro.getOrigen(), filtro.getDestino(),fecha);
+        	
+	        List<IFiltroReservaDto>   result= service.getRetorno(filtro.getOrigen(), filtro.getDestino(),filtro.getFecha(),filtro.getTrediasAD());
             return ResponseEntity.ok(new ApiResponseDto<List<IFiltroReservaDto>>("Datos obtenidos", result,true));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(new ApiResponseDto<List<IFiltroReservaDto>>(e.getMessage(), null, false));

@@ -12,6 +12,7 @@ public interface IFiltroReservaDto {
     String getTotalSeats();
     Double getPrecioEjecutivo();
     Double getPrecioEconomico();
+    
 	  
 	    
 	   

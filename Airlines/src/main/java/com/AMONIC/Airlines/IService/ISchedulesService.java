@@ -12,10 +12,8 @@ public interface ISchedulesService extends IBaseService<Schedules>{
 	
 	
 	
-	List<IFiltroReservaDto> getIda(String origen, String destino, Date fecha) throws Exception;
+	List<IFiltroReservaDto> getFiltro(int origen, int destino, String fecha,Boolean TresDias,String tipoCabina) throws Exception;
 	
-	List<IFiltroReservaDto> getRetorno( String destino,String origen, Date fecha) throws Exception;
-
 	List<IFiltroReservaDto> getSalida();
 	
 

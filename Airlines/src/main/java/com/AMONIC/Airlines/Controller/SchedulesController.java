@@ -28,33 +28,17 @@ public class SchedulesController extends ABaseController<Schedules, ISchedulesSe
 		// TODO Auto-generated constructor stub
 	}
 	//filtro solo ida
-	@PostMapping("/Filtro-Ida")
+	@PostMapping("/Filtro")
 	public ResponseEntity<ApiResponseDto<List<IFiltroReservaDto>>> filtroIda(@RequestBody FiltroReservaDto filtro) {
 	    try {
-	    	 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		        java.sql.Date fechaDestino = new java.sql.Date(dateFormat.parse(filtro.getFecha()).getTime());
-	        System.out.println(filtro.getOrigen() + fechaDestino);
-	        
-	        
-	        List<IFiltroReservaDto> result = service.getIda(filtro.getOrigen(), filtro.getDestino(), fechaDestino);
+	 
+	        List<IFiltroReservaDto> result = service.getFiltro(filtro.getOrigen(), filtro.getDestino(), filtro.getFechaS(), filtro.getTresDias(),filtro.getTipoCabina());
 	        return ResponseEntity.ok(new ApiResponseDto<List<IFiltroReservaDto>>("Datos obtenidos", result, true));
 	    } catch (Exception e) {
 	        return ResponseEntity.internalServerError().body(new ApiResponseDto<List<IFiltroReservaDto>>(e.getMessage(), null, false));
 	    }
 	}
 
-		//filtro solo retorno
-	@PostMapping("/Filtro-Retorno")
-    public ResponseEntity<ApiResponseDto<List<IFiltroReservaDto>>> filtroRetorno(@RequestBody FiltroReservaDto filtro) {
-        try {
-        	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        java.sql.Date fecha = new java.sql.Date(dateFormat.parse(filtro.getFecha()).getTime());
-	        List<IFiltroReservaDto>   result= service.getRetorno(filtro.getOrigen(), filtro.getDestino(),fecha);
-            return ResponseEntity.ok(new ApiResponseDto<List<IFiltroReservaDto>>("Datos obtenidos", result,true));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ApiResponseDto<List<IFiltroReservaDto>>(e.getMessage(), null, false));
-        }
-    }
 	
 	@GetMapping("/Salida")
     public ResponseEntity<ApiResponseDto<List<IFiltroReservaDto>>> Salida() {

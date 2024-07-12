@@ -22,18 +22,25 @@ public class SchedulesService extends ABaseService<Schedules> implements ISchedu
 	@Autowired
 	public ISchedulesRepository repository;
 	
+
 	@Override
-	public List<IFiltroReservaDto> getIda(String origen, String destino, Date fecha) throws Exception {
+	public List<IFiltroReservaDto> getFiltro(int origen, int destino, String fecha, Boolean tresDias,String tipoCabina) throws Exception {
 	    System.out.println("Servicio - Origen: " + origen + ", Destino: " + destino + ", Fecha: " + fecha);
-	    return repository.getFiltroIda(origen, destino, fecha);
+
+	    	System.out.println(fecha + " fecha vacia ");
+
+	    // Convertir fecha vacía a null para evitar el error
+	    if ("".equals(fecha)) {
+	        fecha = null;
+	    }
+	    if ("".equals(tipoCabina)) {
+	        tipoCabina = null;
+	    }
+	   
+	    return repository.getFiltro(origen, destino, fecha, tresDias, tipoCabina);
 	}
 
 
-	@Override
-	public List<IFiltroReservaDto> getRetorno(String destino, String origen, Date fecha) throws Exception {
-		// TODO Auto-generated method stub
-		return repository.getFiltroRetorno(origen, destino, fecha);
-	}
 
 
 	@Override
