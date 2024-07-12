@@ -13,6 +13,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/estyle.css">
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <!-- fontaweosme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
 </head>
 
 <body>
@@ -26,142 +41,174 @@
                 <!-- Primera fila: Origen y Destino -->
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label for="origen">Origen</label>
-                        <div class="input-group">
-                            <select class="form-control" id="origen">
-                                <option>Neiva</option>
-                                <option>Bogota</option>
-                            </select>
+                        <input type="hidden" name="id" id="id_empl" value="">
+                        <label class="col-sm-2 col-form-label" for="origen">Origen: </label>
+                        <div class="col-sm-10">
+                            <input type="hidden" id="selected_origen_id" name="selected_origen_id" value="">
+                            <input type="text" list="city_id" class="form-control" name="origen_id" id="origen_id"
+                                onchange="applyFilters()">
                         </div>
                     </div>
+
                     <div class="form-group col-md-4">
-                        <label for="destino">Destino</label>
-                        <div class="input-group">
-                            <select class="form-control" id="destino">
-                                <option>Neiva</option>
-                                <option>Bogota</option>
-                            </select>
+                        <input type="hidden" name="id" id="id_empl" value="">
+                        <label class="col-sm-2 col-form-label" for="destino">Destino: </label>
+                        <div class="col-sm-10">
+                            <input type="hidden" id="selected_destino_id" name="selected_destino_id" value="">
+                            <input type="text" list="city_id" class="form-control" name="destino_id" id="destino_id"
+                                onchange="applyFilters()">
                         </div>
                     </div>
+
                     <div class="form-group col-md-4">
                         <label for="cabina">Tipo de cabina</label>
                         <div class="input-group">
-                            <select class="form-control" id="cabina" onchange="loadSalida(this.value)">
-                                <option value="Economy">Economy</option>
-                                <option value="Ejecutiva">Ejecutiva</option>
-                                <option value="Primera clase">Primera clase</option>
+                            <select class="form-control" id="cabina" onchange="applyFilters()">
+                                <option value="">Selecione</option>
+                                <option value="1">Economy</option>
+                                <option value="2">Ejecutiva</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group col-md-4">
                         <label for="fechaSalida">Fecha de Salida</label>
-                        <input type="date" class="form-control" id="fechaSalida" required>
+                        <input type="date" class="form-control" id="fechaSalida" required onchange="applyFilters()">
                         <div class="valid-tooltip">Looks good!</div>
                     </div>
                 </div>
-            
                 <!-- Segunda fila: Fecha de salida, Fecha de regreso, Checkboxes -->
                 <div class="row">
-                   
                     <div class="form-group col-md-4">
                         <label for="fechaRegreso">Fecha de Regreso</label>
-                        <input type="date" class="form-control" id="fechaRegreso" required>
+                        <input type="date" class="form-control" id="fechaRegreso" onchange="applyFilters()">
                         <div class="valid-tooltip">Looks good!</div>
                     </div>
                     <div class="form-group col-md-4">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="retorno">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="retorno"
+                                onclick="toggleCheckbox(this, 'inlineCheckbox2'); applyFilters()" checked>
                             <label class="form-check-label" for="inlineCheckbox1">Retorno</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="ida">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="ida"
+                                onclick="toggleCheckbox(this, 'inlineCheckbox1'); applyFilters()">
                             <label class="form-check-label" for="inlineCheckbox2">Solo ida</label>
                         </div>
                     </div>
                 </div>
-            
+
                 <!-- Tercera fila: Botón -->
                 <div class="row mt-4">
                     <div class="col-md-12 text-center">
-                        <button type="button" onclick="Filtro('Economy')" class="btn btn-outline-secondary">Aplicar</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="clearFilters()">
+                            <i class="fas fa-broom"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
+
         <br>
 
         <div class="Row">
-            <h6>Detalle de vuelos de salida:</h6>
-            <table  class="table table-hover" >
+
+            <div class="container mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6>Detalle de vuelos de salida:</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" onchange="applyFilters()" type="checkbox" value=""
+                            id="flexCheckCheckedA" checked>
+                        <label class="form-check-label" for="flexCheckCheckedA">
+                            visualización tres días antes y despues:
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <table id="primer" class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="table-secondary">
-                    <th scope="col">Selecciones</th>    
-                    <th scope="col">Origen</th>
-                    <th scope="col">Destino</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Número de Vuelo</th>
-                    <th scope="col">Precio de Cabina</th>
-                  </tr>
+                        <th scope="col">Selecciones</th>
+                        <th scope="col">Origen</th>
+                        <th scope="col">Destino</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Número de Vuelo</th>
+                        <th scope="col">Precio de Cabina</th>
+                        <th scope="col">Disponibilidad Cabina</th>
+                        
+                    </tr>
                 </thead>
                 <tbody class="table-group-divider" id="resultSalida">
-                    
-                    
                 </tbody>
-              </table>
-          
+            </table>
+
         </div>
-        <div class="Row">
-            <h6>Detalle de vuelos de regreso:</h6>
-            <table  class="table table-hover">
+        <div class="Row" id="returnFlightDetails">
+            <div class="container mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6>Detalle de vuelos de regreso:</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" onchange="applyFilters()" type="checkbox" value=""
+                            id="flexCheckCheckedB" checked>
+                        <label class="form-check-label" for="flexCheckCheckedB">
+                            visualización tres días antes y despues:
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Tu código HTML -->
+            <table id="example" class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="table-secondary">
-                    <th scope="col">Selecciones</th>
-                    <th scope="col">Origen</th>
-                    <th scope="col">Destino</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Número de Vuelo</th>
-                    <th scope="col">Precio de Cabina</th>
-                  </tr>
+                        <th scope="col">Selecciones</th>
+                        <th scope="col">Origen</th>
+                        <th scope="col">Destino</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Número de Vuelo</th>
+                        <th scope="col">Precio de Cabina</th>
+                        <th scope="col">Disponibilidad Cabina</th>
+                    </tr>
                 </thead>
-                <tbody class="table-group-divider" id="resultRegreso">
-                    
-                    
+                <tbody class="table-group-divider" id="resultSalida">
                 </tbody>
-              </table>
-          
+            </table>
+
+
+
         </div>
         <div class="row">
             <div class="card text-center">
                 <div class="card-body">
-                  <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="origen">Pasajeros</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="pasajeros" placeholder="numero de pasajeros" value="Mark" required>   
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="origen">Pasajeros</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="pasajeros"
+                                    placeholder="numero de pasajeros" value="Mark" required>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <br>
+                            <button type="button" id="obtenerSeleccionadosBtn" onclick="reservar()" style="width: 80%;"
+                                class="btn btn-outline-secondary">Reservar vuelo</button>
 
                         </div>
-                    </div>
-                    <div class="form-group col-md-4" >
-                        <br>
-                        <button type="button"  id="obtenerSeleccionadosBtn" onclick="reservar()"  style="width: 80%;" class="btn btn-outline-secondary">Reservar vuelo</button>
 
                     </div>
-
-                  </div>
                 </div>
-               
-              </div>
+
+            </div>
         </div>
     </div>
-    
-    
 
-    
- 
+
+
+
+
     <script src="/js/Operational/Reserva.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -176,14 +223,31 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    
-    <script>
-         loadSalida("Economy");
- 
-    </script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- swett alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+<script>
+    // loadSalida("Economy");
+    loadAere();
+    toggleCheckbox();
+
+    $(document).ready(function () {
+        new DataTable('#example', {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'colvis'
+            ]
+        });
+    });
+
+
+</script>
 
 </body>
 

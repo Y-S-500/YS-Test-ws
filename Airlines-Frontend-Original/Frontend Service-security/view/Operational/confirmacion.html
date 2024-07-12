@@ -7,13 +7,11 @@
     <title>Client</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/litera/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/style2.css">
-
 </head>
 
 <body>
@@ -42,26 +40,21 @@
         <h6>Detalles del vuelo de salida</h6>
         <div class="Filtros">
             <div class="row">
-                <div id="resultSalida">
-
-
-                </div>
+                <div id="resultSalida"></div>
             </div>
-
         </div>
         <h6>Detalles del vuelo de regreso</h6>
         <div class="Filtros">
             <div class="row">
-                <div id="resultRegreso">
-
-
-                </div>
+                <div id="resultRegreso"></div>
             </div>
-
         </div>
         <br>
         <br>
         <h6>Datos del pasajero</h6>
+        <div>
+            Cantidad de tickets: <span id="valor"></span>
+        </div>
         <div class="Filtros">
             <form id="myForm" class="needs-validation" novalidate>
                 <div class="row">
@@ -92,79 +85,72 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-3">
-                        <label for="input5" class="form-label">País de pasaporte</label>
-                        <div class="col-sm-10">
-                            <input type="hidden" id="selected_Countries_id" name="selected_Countries_id" value="">
-                            <input type="text" list="Countries_id" class="form-control" name="Countries_id"
-                                id="Countries_id">
-                        </div>
+                        <label for="Countries_id" class="form-label">País de pasaporte</label>
+                        <input type="hidden" id="selected_Countries_id" name="selected_Countries_id" value="">
+                        <input type="text" list="Countries_id" class="form-control" name="Countries_id"
+                            id="Countries_id" required>
+                        <datalist id="Countries_id">
+                            <!-- Opciones del país -->
+                        </datalist>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Por favor, proporciona un país válido.</div>
                     </div>
                     <div class="col-md-3">
-                        <label for="input6" class="form-label">Teléfono</label>
+                        <label for="phone" class="form-label">Teléfono</label>
                         <input type="text" class="form-control" id="phone" placeholder="57 +" required>
                         <div class="valid-feedback">Looks good!</div>
                         <div class="invalid-feedback">Por favor, proporciona un número de teléfono válido.</div>
                     </div>
                     <div class="col-md-3">
-                        <label for="input6" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" placeholder="@" id="email" required>
                         <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Por favor, proporciona un número de teléfono válido.</div>
+                        <div class="invalid-feedback">Por favor, proporciona un email válido.</div>
                     </div>
                     <div class="col-md-3">
                         <label for="formFile" class="form-label">Imagen pasaporte</label>
-                        <input class="form-control" type="file" id="formFile">
-
+                        <input class="form-control" type="file" id="formFile" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Por favor, proporciona una imagen válida.</div>
                     </div>
-                    <br>
-
-
-                    <div class="col-md-3">
-                        <br>
-                    </div>
-                    <br>
                 </div>
                 <br>
+                <button class="btn btn-outline-secondary" type="button" onclick="guardar()"
+                    id="applyBtn">Aplicar</button>
             </form>
-            <button class="btn btn-outline-secondary" onclick="guardar()">Aplicar</button>
         </div>
-
-
-
         <div class="Row">
+            <div>
+                Cantidad de ordenados: <span id="valorOrdenados"></span>
+            </div>
             <h6>Lista de pasajeros:</h6>
+            <button type="button" class="btn btn-danger" onclick="eliminarSeleccionados()">Eliminar
+                Seleccionados</button>
+
             <table class="table table-hover">
                 <thead>
                     <tr class="table-secondary">
-                        <th scope="col">Selecione</th>
+                        <th scope="col">Seleccione</th>
                         <th scope="col">Nombres</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Fecha de nacimiento</th>
                         <th scope="col">Número de pasaporte</th>
-                        <th scope="col">país de pasaporte</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Foto Pasaporte</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider" id="resultData">
-
-
-                </tbody>
+                <tbody class="table-group-divider" id="resultData"></tbody>
             </table>
             <!-- Tercera fila: Botón -->
             <div class="row mt-4">
                 <div class="col-md-12 text-center">
-                    <a href="../Operational/Reserva.html">
-                        <button type="button"  class="btn btn-outline-secondary">Regresar a
-                            buscar buelos</button>
-
-                    </a>
-                  
+                    <button type="button" class="btn btn-outline-secondary" onclick="eliminar()">Regresar a
+                        Reserva</button>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-secondary"  onclick="Confirmacion()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-outline-secondary" onclick="Confirmacion()"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Confirmar reserva
                     </button>
-
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -176,55 +162,54 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    
                                     <h3 id="precio-final">Valor: </h3>
-                                    
                                     <br>
-                                    
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                              Tarjeta de Crédito
-                                            </label>
-                                          </div>
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                              Efectivo
-                                            </label>
-                                          </div>
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                              Comprobante de pago
-                                            </label>
-                                          </div>
-
-                                    
-
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Tarjeta de Crédito
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Efectivo
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            PSE
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault4">
+                                            Nequi
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar </button>
-                                    <button type="button" class="btn btn-primary" onclick="modificar()">Emitir boletos</button>
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" onclick="emitir()">Emitir
+                                        boletos</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossorigin="anonymous"></script>
-
     <script src="/js/Operational/confirmacion.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -238,24 +223,20 @@
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
     <script>
-        loadCountries();
-        loadReserva();
-        loadData();
+         loadCountries();
 
+         loadReserva() ;
+
+   loadData() ;
+      
+
+        tickets(); 
     </script>
-
 </body>
 
 </html>
